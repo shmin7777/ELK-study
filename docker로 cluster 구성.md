@@ -1,3 +1,27 @@
+# 단일 node docker compose
+```
+version: '3'
+
+services:
+  elasticsearch:
+    container_name: elasticsearch
+    image: elasticsearch:7.9.0
+    ports:
+     - 9200:9200
+     - 9300:9300
+    networks:
+     - default
+    volumes:
+     - /usr/share/data/elasticsearch:/usr/share/elasticsearch/data
+    environment:
+     - discovery.type=single-node
+     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+     - TZ=Asia/Seoul
+    user: root
+    restart: always
+    privileged: true
+```  
+
 # 각 instance에 run
 ```  
 docker run -d \
